@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>PayPal Payment - BookSaw</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="icomoon/icomoon.css">
+	<link rel="stylesheet" type="text/css" href="css/vendor.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="commerce.css">
+</head>
+
+<body>
+	<div id="header-wrap">
+		<header id="header">
+			<div class="container-fluid">
+				<div class="row align-items-center">
+					<div class="col-md-2">
+						<div class="main-logo"><a href="index.html"><img src="images/main-logo.png" alt="logo"></a></div>
+					</div>
+					<div class="col-md-10">
+						<nav id="navbar">
+							<div class="main-menu stellarnav">
+								<ul class="menu-list">
+									<li class="menu-item"><a href="index.html">Home</a></li>
+									<li class="menu-item"><a href="cart.html">Cart</a></li>
+									<li class="menu-item"><a href="wishlist.html">Wishlist</a></li>
+									<li class="menu-item"><a href="checkout.html">Checkout</a></li>
+									<li class="menu-item"><a href="payment-razorpay.html">Razorpay</a></li>
+									<li class="menu-item active"><a href="payment-paypal.html">PayPal</a></li>
+									<li class="menu-item"><a href="order-history.html">Orders</a></li>
+								</ul>
+								<div class="hamburger"><span class="bar"></span><span class="bar"></span><span
+										class="bar"></span></div>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+
+	<section class="commerce-hero">
+		<div class="container">
+			<div class="section-header align-center">
+				<div class="title"><span>Payment gateway</span></div>
+				<h1 class="section-title">PayPal Checkout</h1>
+			</div>
+		</div>
+	</section>
+
+	<main class="commerce-page py-5">
+		<div class="container">
+			<div class="row g-5 align-items-start">
+				<div class="col-lg-7">
+					<div class="commerce-panel gateway-panel">
+						<div class="gateway-brand paypal-brand">
+							<span class="gateway-mark">P</span>
+							<div>
+								<h3>PayPal</h3>
+								<p>Preview a mock PayPal approval or prepare the container for the real SDK button.</p>
+							</div>
+						</div>
+
+						<div class="payment-mode" data-payment-mode>
+							<button class="active" type="button" data-mode="mock">Mock</button>
+						</div>
+
+						<div class="mock-pane active" data-pane="mock">
+							<div class="paypal-button-preview">
+								<span>PayPal</span>
+								<strong>Pay $129.15</strong>
+							</div>
+							<button class="btn btn-accent" type="button" data-mock-pay="PayPal">Approve Payment</button>
+						</div>
+
+						<div class="mock-pane" data-pane="real">
+							<div id="paypal-button-container" class="sdk-placeholder">
+								PayPal SDK button renders here after adding your client id.
+							</div>
+							<div class="integration-note">
+								<strong>Backend needed:</strong> create and capture the PayPal order on your server, then store
+								the transaction id with the BookSaw order.
+							</div>
+						</div>
+
+						<div class="payment-result" data-payment-result></div>
+					</div>
+				</div>
+				<div class="col-lg-5">
+					<aside class="commerce-panel order-summary">
+						<h3>Payable Amount</h3>
+						<div class="summary-totals">
+							<p><span>Order</span><strong>#BS-2048</strong></p>
+							<p><span>Items</span><strong>$123.00</strong></p>
+							<p><span>Taxes</span><strong>$6.15</strong></p>
+							<p class="grand-total"><span>Total</span><strong>$129.15</strong></p>
+						</div>
+						<a href="invoice.html" class="btn btn-outline-accent w-100">View Invoice</a>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="footer-item">
+						<div class="company-brand"><img src="images/main-logo.png" alt="logo" class="footer-logo">
+							<p>Curated books, simple orders, and calm checkout experiences for every reader.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="footer-menu"><h5>Discover</h5><ul class="menu-list"><li class="menu-item"><a
+									href="index.html">Home</a></li><li class="menu-item"><a href="checkout.html">Checkout</a></li></ul></div>
+				</div>
+				<div class="col-md-2">
+					<div class="footer-menu"><h5>Payments</h5><ul class="menu-list"><li class="menu-item"><a
+									href="payment-razorpay.html">Razorpay</a></li><li class="menu-item"><a
+									href="payment-paypal.html">PayPal</a></li></ul></div>
+				</div>
+				<div class="col-md-2">
+					<div class="footer-menu"><h5>Account</h5><ul class="menu-list"><li class="menu-item"><a
+									href="order-history.html">Orders</a></li><li class="menu-item"><a href="invoice.html">Invoice</a></li></ul></div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/commerce-demo.js"></script>
+</body>
+
+</html>

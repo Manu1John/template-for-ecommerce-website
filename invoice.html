@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Invoice - BookSaw</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="icomoon/icomoon.css">
+	<link rel="stylesheet" type="text/css" href="css/vendor.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="commerce.css">
+</head>
+
+<body>
+	<div id="header-wrap">
+		<header id="header">
+			<div class="container-fluid">
+				<div class="row align-items-center">
+					<div class="col-md-2">
+						<div class="main-logo"><a href="index.html"><img src="images/main-logo.png" alt="logo"></a></div>
+					</div>
+					<div class="col-md-10">
+						<nav id="navbar">
+							<div class="main-menu stellarnav">
+								<ul class="menu-list">
+									<li class="menu-item"><a href="index.html">Home</a></li>
+									<li class="menu-item"><a href="cart.html">Cart</a></li>
+									<li class="menu-item"><a href="wishlist.html">Wishlist</a></li>
+									<li class="menu-item"><a href="checkout.html">Checkout</a></li>
+									<li class="menu-item"><a href="payment-razorpay.html">Razorpay</a></li>
+									<li class="menu-item"><a href="payment-paypal.html">PayPal</a></li>
+									<li class="menu-item"><a href="order-history.html">Orders</a></li>
+									<li class="menu-item active"><a href="invoice.html">Invoice</a></li>
+								</ul>
+								<div class="hamburger"><span class="bar"></span><span class="bar"></span><span
+										class="bar"></span></div>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+
+	<main class="commerce-page invoice-page py-5">
+		<div class="container">
+			<div class="invoice-actions">
+				<a href="order-history.html" class="btn btn-outline-accent">Back to Orders</a>
+				<button class="btn btn-accent" type="button" onclick="window.print()">Print Invoice</button>
+			</div>
+
+			<section class="invoice-sheet">
+				<div class="invoice-head">
+					<div>
+						<img src="images/main-logo.png" alt="BookSaw logo">
+						<p>12 Library Street, Bengaluru, KA 560001</p>
+					</div>
+					<div class="invoice-meta">
+						<h1>Invoice</h1>
+						<p><span>Invoice:</span> INV-BS-2048</p>
+						<p><span>Order:</span> #BS-2048</p>
+						<p><span>Date:</span> May 02, 2026</p>
+					</div>
+				</div>
+
+				<div class="invoice-addresses">
+					<div>
+						<h4>Billed To</h4>
+						<p>Aarav Sharma<br>aarav@example.com<br>+91 98765 43210</p>
+					</div>
+					<div>
+						<h4>Shipped To</h4>
+						<p>12 Library Street<br>Bengaluru, KA 560001<br>India</p>
+					</div>
+					<div>
+						<h4>Payment</h4>
+						<p>Razorpay<br>Transaction: pay_mock_2048<br>Status: Paid</p>
+					</div>
+				</div>
+
+				<div class="table-responsive">
+					<table class="table invoice-table">
+						<thead>
+							<tr>
+								<th>Book</th>
+								<th>Qty</th>
+								<th>Price</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Simple Way Of Piece Life</td>
+								<td>1</td>
+								<td>$40.00</td>
+								<td>$40.00</td>
+							</tr>
+							<tr>
+								<td>Great Travel At Desert</td>
+								<td>1</td>
+								<td>$38.00</td>
+								<td>$38.00</td>
+							</tr>
+							<tr>
+								<td>The Lady Beauty Scarlett</td>
+								<td>1</td>
+								<td>$45.00</td>
+								<td>$45.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="invoice-total-box">
+					<p><span>Subtotal</span><strong>$123.00</strong></p>
+					<p><span>Shipping</span><strong>$0.00</strong></p>
+					<p><span>Tax</span><strong>$6.15</strong></p>
+					<p class="grand-total"><span>Total Paid</span><strong>$129.15</strong></p>
+				</div>
+
+				<div class="invoice-note">
+					Thank you for shopping with BookSaw. Keep this invoice for payment and delivery reference.
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/script.js"></script>
+</body>
+
+</html>

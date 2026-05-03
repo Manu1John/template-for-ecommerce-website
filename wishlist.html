@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Wishlist - BookSaw</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="icomoon/icomoon.css">
+	<link rel="stylesheet" type="text/css" href="css/vendor.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="commerce.css">
+</head>
+
+<body>
+	<div id="header-wrap">
+		<div class="top-content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="social-links">
+							<ul>
+								<li><a href="#"><i class="icon icon-facebook"></i></a></li>
+								<li><a href="#"><i class="icon icon-twitter"></i></a></li>
+								<li><a href="#"><i class="icon icon-youtube-play"></i></a></li>
+								<li><a href="#"><i class="icon icon-behance-square"></i></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="right-element">
+							<a href="loginSignup.html" class="user-account for-buy"><i class="icon icon-user"></i><span>Account</span></a>
+							<a href="cart.html" class="cart for-buy"><i class="icon icon-clipboard"></i><span>Cart:(3
+									$)</span></a>
+							<div class="action-menu">
+								<div class="search-bar">
+									<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+										<i class="icon icon-search"></i>
+									</a>
+									<form role="search" method="get" class="search-box">
+										<input class="search-field text search-input" placeholder="Search" type="search">
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<header id="header">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="main-logo">
+							<a href="index.html"><img src="images/main-logo.png" alt="logo"></a>
+						</div>
+					</div>
+					<div class="col-md-10">
+						<nav id="navbar">
+							<div class="main-menu stellarnav">
+								<ul class="menu-list">
+									<li class="menu-item"><a href="index.html">Home</a></li>
+									<li class="menu-item"><a href="cart.html">Cart</a></li>
+									<li class="menu-item active"><a href="wishlist.html">Wishlist</a></li>
+									<li class="menu-item"><a href="checkout.html">Checkout</a></li>
+									<li class="menu-item"><a href="order-history.html">Orders</a></li>
+									<li class="menu-item"><a href="invoice.html">Invoice</a></li>
+								</ul>
+								<div class="hamburger">
+									<span class="bar"></span>
+									<span class="bar"></span>
+									<span class="bar"></span>
+								</div>
+							</div>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+
+	<section class="commerce-hero leaf-pattern-overlay">
+		<div class="corner-pattern-overlay"></div>
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-7">
+					<div class="section-header">
+						<div class="title"><span>Saved for later</span></div>
+						<h1 class="section-title">Wishlist</h1>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="wishlist-note">
+						<span>4 books saved</span>
+						<a href="cart.html">Open cart</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<main class="commerce-page py-5">
+		<div class="container">
+			<div class="commerce-toolbar">
+				<div>
+					<h3>Saved Books</h3>
+					<p>Keep favorites ready for the next order.</p>
+				</div>
+				<div class="wishlist-filter">
+					<button class="active" type="button">All</button>
+					<button type="button">In Stock</button>
+					<button type="button">On Sale</button>
+				</div>
+			</div>
+
+			<div class="wishlist-grid">
+				<article class="wishlist-card">
+					<figure class="product-style">
+						<img src="images/product-item4.jpg" alt="Once Upon A Time" class="product-item">
+					</figure>
+					<div class="wishlist-card-content">
+						<span class="status-badge paid">In stock</span>
+						<h3>Once Upon A Time</h3>
+						<p>Klien Marry</p>
+						<strong>$35.00</strong>
+						<div class="wishlist-actions">
+							<a href="cart.html" class="btn btn-accent">Add to Cart</a>
+							<button class="remove-button" type="button" aria-label="Remove Once Upon A Time">&times;</button>
+						</div>
+					</div>
+				</article>
+
+				<article class="wishlist-card">
+					<figure class="product-style">
+						<img src="images/product-item5.jpg" alt="Simple Way Of Piece Life" class="product-item">
+					</figure>
+					<div class="wishlist-card-content">
+						<span class="status-badge shipped">On sale</span>
+						<h3>Simple Way Of Piece Life</h3>
+						<p>Armor Ramsey</p>
+						<strong>$30.00</strong>
+						<div class="wishlist-actions">
+							<a href="cart.html" class="btn btn-accent">Add to Cart</a>
+							<button class="remove-button" type="button" aria-label="Remove Simple Way Of Piece Life">&times;</button>
+						</div>
+					</div>
+				</article>
+
+				<article class="wishlist-card">
+					<figure class="product-style">
+						<img src="images/product-item6.jpg" alt="Great Travel At Desert" class="product-item">
+					</figure>
+					<div class="wishlist-card-content">
+						<span class="status-badge paid">In stock</span>
+						<h3>Great Travel At Desert</h3>
+						<p>Sanchit Howdy</p>
+						<strong>$38.00</strong>
+						<div class="wishlist-actions">
+							<a href="cart.html" class="btn btn-accent">Add to Cart</a>
+							<button class="remove-button" type="button" aria-label="Remove Great Travel At Desert">&times;</button>
+						</div>
+					</div>
+				</article>
+
+				<article class="wishlist-card">
+					<figure class="product-style">
+						<img src="images/product-item7.jpg" alt="Honey Suckle Love" class="product-item">
+					</figure>
+					<div class="wishlist-card-content">
+						<span class="status-badge pending">Low stock</span>
+						<h3>Honey Suckle Love</h3>
+						<p>Raina Jenny</p>
+						<strong>$40.00</strong>
+						<div class="wishlist-actions">
+							<a href="cart.html" class="btn btn-accent">Add to Cart</a>
+							<button class="remove-button" type="button" aria-label="Remove Honey Suckle Love">&times;</button>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+	</main>
+
+	<footer id="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="footer-item">
+						<div class="company-brand">
+							<img src="images/main-logo.png" alt="logo" class="footer-logo">
+							<p>Curated books, simple orders, and calm checkout experiences for every reader.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="footer-menu">
+						<h5>Discover</h5>
+						<ul class="menu-list">
+							<li class="menu-item"><a href="index.html">Home</a></li>
+							<li class="menu-item"><a href="#">Books</a></li>
+							<li class="menu-item"><a href="#">Authors</a></li>
+							<li class="menu-item"><a href="#">Subjects</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="footer-menu">
+						<h5>Shop</h5>
+						<ul class="menu-list">
+							<li class="menu-item"><a href="cart.html">Cart</a></li>
+							<li class="menu-item"><a href="wishlist.html">Wishlist</a></li>
+							<li class="menu-item"><a href="checkout.html">Checkout</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="footer-menu">
+						<h5>Account</h5>
+						<ul class="menu-list">
+							<li class="menu-item"><a href="order-history.html">Orders</a></li>
+							<li class="menu-item"><a href="invoice.html">Invoice</a></li>
+							<li class="menu-item"><a href="#">Help center</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/script.js"></script>
+</body>
+
+</html>
