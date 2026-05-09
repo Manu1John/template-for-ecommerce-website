@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BookSaw - Payment Successful</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Prata&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:#f8f8f6;
+      color:#222;
+      line-height:1.6;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .container{
+      width:90%;
+      max-width:1200px;
+      margin:auto;
+    }
+
+    /* TOPBAR */
+
+    .topbar{
+      background:#fff;
+      border-bottom:1px solid #ececec;
+      padding:12px 0;
+      font-size:14px;
+    }
+
+    .topbar-wrapper{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    .social-icons,
+    .top-links{
+      display:flex;
+      gap:18px;
+      align-items:center;
+    }
+
+    .social-icons a:hover,
+    .top-links a:hover{
+      color:#b8995f;
+      transition:.3s;
+    }
+
+    /* NAVBAR */
+
+    .navbar{
+      background:#fff;
+      padding:25px 0;
+      border-bottom:1px solid #efefef;
+    }
+
+    .navbar-wrapper{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+
+    .logo{
+      font-family:'Prata',serif;
+      font-size:42px;
+      letter-spacing:2px;
+    }
+
+    .nav-links{
+      display:flex;
+      gap:35px;
+      font-size:14px;
+      font-weight:600;
+      text-transform:uppercase;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active{
+      color:#b8995f;
+    }
+
+    /* HERO */
+
+    .hero{
+      background:linear-gradient(to right,#f5f2e7,#faf7ee,#f5f2e7);
+      padding:60px 0;
+      text-align:center;
+    }
+
+    .hero small{
+      display:block;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      margin-bottom:15px;
+      color:#666;
+      font-weight:600;
+    }
+
+    .hero h1{
+      font-family:'Prata',serif;
+      font-size:52px;
+      font-weight:400;
+      text-transform:uppercase;
+    }
+
+    /* SUCCESS SECTION */
+
+    .success-section{
+      padding:80px 0;
+    }
+
+    .success-card{
+      background:#fff;
+      border:1px solid #ece6d9;
+      padding:60px;
+      text-align:center;
+      max-width:900px;
+      margin:auto;
+    }
+
+    .success-icon{
+      width:100px;
+      height:100px;
+      margin:auto auto 30px;
+      border-radius:50%;
+      background:#b8995f;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:48px;
+      font-weight:bold;
+    }
+
+    .success-title{
+      font-family:'Prata',serif;
+      font-size:42px;
+      margin-bottom:15px;
+    }
+
+    .success-text{
+      color:#666;
+      max-width:600px;
+      margin:auto auto 40px;
+    }
+
+    /* ORDER DETAILS */
+
+    .order-box{
+      background:#faf8f2;
+      border:1px solid #ece6d9;
+      padding:35px;
+      margin-top:40px;
+      text-align:left;
+    }
+
+    .order-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:30px;
+      flex-wrap:wrap;
+      gap:20px;
+    }
+
+    .order-header h3{
+      font-size:28px;
+      font-family:'Prata',serif;
+    }
+
+    .order-id{
+      color:#b8995f;
+      font-weight:600;
+    }
+
+    .order-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:20px 0;
+      border-bottom:1px solid #e6dfd2;
+    }
+
+    .order-item:last-child{
+      border-bottom:none;
+    }
+
+    .book-info{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+
+    .book-info img{
+      width:80px;
+      height:110px;
+      object-fit:cover;
+      background:#eee;
+    }
+
+    .book-info h4{
+      margin-bottom:8px;
+      font-size:20px;
+    }
+
+    .book-info p{
+      color:#777;
+      font-size:14px;
+    }
+
+    .book-price{
+      font-size:18px;
+      font-weight:700;
+      color:#b8995f;
+    }
+
+    /* TOTAL */
+
+    .total-box{
+      margin-top:35px;
+      border-top:1px solid #ddd;
+      padding-top:25px;
+    }
+
+    .total-row{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:14px;
+      color:#555;
+    }
+
+    .grand-total{
+      font-size:22px;
+      font-weight:700;
+      color:#222;
+    }
+
+    /* BUTTONS */
+
+    .button-group{
+      margin-top:45px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:16px 34px;
+      border:none;
+      cursor:pointer;
+      font-size:14px;
+      font-weight:600;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      transition:.3s;
+    }
+
+    .btn-primary{
+      background:#b8995f;
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:#947544;
+    }
+
+    .btn-outline{
+      background:transparent;
+      border:1px solid #b8995f;
+      color:#b8995f;
+    }
+
+    .btn-outline:hover{
+      background:#b8995f;
+      color:#fff;
+    }
+
+    /* FOOTER */
+
+    footer{
+      background:#f5f3ea;
+      padding:70px 0 30px;
+      margin-top:60px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:40px;
+      margin-bottom:50px;
+    }
+
+    .footer-title{
+      font-family:'Prata',serif;
+      font-size:24px;
+      margin-bottom:20px;
+    }
+
+    .footer-column h4{
+      margin-bottom:18px;
+    }
+
+    .footer-column p,
+    .footer-column a{
+      color:#555;
+      margin-bottom:10px;
+      display:block;
+    }
+
+    .newsletter{
+      display:flex;
+      margin-top:15px;
+      overflow:hidden;
+      border:1px solid #ddd;
+    }
+
+    .newsletter input{
+      flex:1;
+      border:none;
+      padding:14px;
+      outline:none;
+    }
+
+    .newsletter button{
+      border:none;
+      background:#b8995f;
+      color:#fff;
+      padding:0 25px;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    .copyright{
+      border-top:1px solid #ddd;
+      padding-top:20px;
+      text-align:center;
+      color:#666;
+      font-size:14px;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:992px){
+
+      .footer-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+    }
+
+    @media(max-width:768px){
+
+      .topbar-wrapper,
+      .navbar-wrapper{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:20px;
+      }
+
+      .success-card{
+        padding:35px 25px;
+      }
+
+      .hero h1{
+        font-size:34px;
+      }
+
+      .success-title{
+        font-size:32px;
+      }
+
+      .order-item{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .book-info{
+        align-items:flex-start;
+      }
+
+      .button-group{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- TOPBAR -->
+
+  <div class="topbar">
+
+    <div class="container topbar-wrapper">
+
+      <div class="social-icons">
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+      </div>
+
+      <div class="top-links">
+        <a href="#">Account</a>
+        <a href="#">Wishlist</a>
+        <a href="#">Cart (0)</a>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+    <div class="container navbar-wrapper">
+
+      <div class="logo">BOOKSAW</div>
+
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Books</a>
+        <a href="#">Orders</a>
+        <a href="#" class="active">Success</a>
+        <a href="#">Contact</a>
+      </div>
+
+    </div>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="container">
+      <small>Order Completed</small>
+      <h1>Payment Successful</h1>
+    </div>
+
+  </section>
+
+  <!-- SUCCESS SECTION -->
+
+  <section class="success-section">
+
+    <div class="container">
+
+      <div class="success-card">
+
+        <div class="success-icon">✓</div>
+
+        <h2 class="success-title">
+          Thank You For Your Purchase
+        </h2>
+
+        <p class="success-text">
+          Your payment has been processed successfully. Your order is now confirmed and will be shipped shortly.
+        </p>
+
+        <!-- ORDER DETAILS -->
+
+        <div class="order-box">
+
+          <div class="order-header">
+            <h3>My Orders</h3>
+            <span class="order-id">Order #BS-45891</span>
+          </div>
+
+          <!-- ITEM -->
+
+          <div class="order-item">
+
+            <div class="book-info">
+
+              <img src="images/product-item1.jpg" alt="Book">
+
+              <div>
+                <h4>Simple Way Of Piece Life</h4>
+                <p>Author: James Clear</p>
+                <p>Quantity: 1</p>
+              </div>
+
+            </div>
+
+            <div class="book-price">$40.00</div>
+
+          </div>
+
+          <!-- ITEM -->
+
+          <div class="order-item">
+
+            <div class="book-info">
+
+              <img src="images/product-item2.jpg" alt="Book">
+
+              <div>
+                <h4>Great Travel At Desert</h4>
+                <p>Author: Sanchit Howdy</p>
+                <p>Quantity: 1</p>
+              </div>
+
+            </div>
+
+            <div class="book-price">$38.00</div>
+
+          </div>
+
+          <!-- TOTAL -->
+
+          <div class="total-box">
+
+            <div class="total-row">
+              <span>Subtotal</span>
+              <span>$78.00</span>
+            </div>
+
+            <div class="total-row">
+              <span>Shipping</span>
+              <span>Free</span>
+            </div>
+
+            <div class="total-row">
+              <span>Tax</span>
+              <span>$4.20</span>
+            </div>
+
+            <div class="total-row grand-total">
+              <span>Total</span>
+              <span>$82.20</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BUTTONS -->
+
+        <div class="button-group">
+
+          <a href="order-history.html" class="btn btn-outline">
+            View My Orders
+          </a>
+
+          <a href="index.html" class="btn btn-primary">
+            Continue Shopping
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-column">
+
+          <div class="footer-title">BOOKSAW</div>
+
+          <p>+523 455-7890</p>
+          <p>info@booksaw.com</p>
+          <p>support@booksaw.com</p>
+
+        </div>
+
+        <div class="footer-column">
+
+          <h4>Quick Links</h4>
+
+          <a href="#">About</a>
+          <a href="#">Books</a>
+          <a href="#">Blog</a>
+          <a href="#">Contact</a>
+
+        </div>
+
+        <div class="footer-column">
+
+          <h4>Newsletter</h4>
+
+          <p>Subscribe for updates and offers.</p>
+
+          <div class="newsletter">
+            <input type="email" placeholder="Email address">
+            <button>Subscribe</button>
+          </div>
+
+        </div>
+
+        <div class="footer-column">
+
+          <h4>Customer Support</h4>
+
+          <p>Shipping Policy</p>
+          <p>Return Policy</p>
+          <p>Terms & Conditions</p>
+
+        </div>
+
+      </div>
+
+      <div class="copyright">
+        © 2025 BookSaw — Payment Successful Page
+      </div>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>

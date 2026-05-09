@@ -1,0 +1,667 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookSaw - User Profile</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prata&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8f8f6;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* TOPBAR */
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid #ececec;
+      padding: 12px 0;
+      font-size: 14px;
+    }
+
+    .topbar-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .social-icons,
+    .top-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .social-icons a:hover,
+    .top-links a:hover {
+      color: #b8995f;
+      transition: 0.3s ease;
+    }
+
+    /* NAVBAR */
+
+    .navbar {
+      background: #fff;
+      padding: 25px 0;
+      border-bottom: 1px solid #efefef;
+    }
+
+    .navbar-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: 'Prata', serif;
+      font-size: 42px;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 35px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      transition: 0.3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: #b8995f;
+    }
+
+    /* HERO */
+
+    .hero {
+      background: linear-gradient(to right, #f5f2e7, #faf7ee, #f5f2e7);
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .hero small {
+      display: block;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      color: #666;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-family: 'Prata', serif;
+      font-size: 52px;
+      font-weight: 400;
+      position: relative;
+      display: inline-block;
+      text-transform: uppercase;
+      padding: 0 40px;
+    }
+
+    .hero h1::before,
+    .hero h1::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 160px;
+      height: 1px;
+      background: #8f8f8f;
+    }
+
+    .hero h1::before {
+      left: -170px;
+    }
+
+    .hero h1::after {
+      right: -170px;
+    }
+
+    /* PROFILE SECTION */
+
+    .profile-section {
+      padding: 80px 0;
+      background: #fff;
+    }
+
+    .profile-wrapper {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 40px;
+    }
+
+    /* SIDEBAR */
+
+    .profile-sidebar {
+      background: #faf8f2;
+      padding: 40px 30px;
+      border: 1px solid #ece6d9;
+      height: fit-content;
+    }
+
+    .profile-image {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: auto auto 25px;
+      border: 4px solid #b8995f;
+    }
+
+    .profile-name {
+      text-align: center;
+      font-size: 28px;
+      font-family: 'Prata', serif;
+      margin-bottom: 10px;
+    }
+
+    .profile-role {
+      text-align: center;
+      color: #777;
+      margin-bottom: 35px;
+      font-size: 15px;
+    }
+
+    .profile-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .profile-menu a {
+      padding: 14px 18px;
+      background: #fff;
+      border: 1px solid #ececec;
+      transition: 0.3s ease;
+      font-weight: 500;
+    }
+
+    .profile-menu a:hover,
+    .profile-menu a.active {
+      background: #b8995f;
+      color: #fff;
+      border-color: #b8995f;
+    }
+
+    /* CONTENT */
+
+    .profile-content {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .profile-card {
+      background: #fafafa;
+      border: 1px solid #ececec;
+      padding: 35px;
+    }
+
+    .card-title {
+      font-family: 'Prata', serif;
+      font-size: 30px;
+      margin-bottom: 25px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .info-box label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .info-box input,
+    .info-box textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #ddd;
+      background: #fff;
+      outline: none;
+      font-size: 15px;
+      transition: 0.3s ease;
+    }
+
+    .info-box input:focus,
+    .info-box textarea:focus {
+      border-color: #b8995f;
+    }
+
+    .info-box textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .full-width {
+      grid-column: 1 / -1;
+    }
+
+    .save-btn {
+      margin-top: 25px;
+      padding: 15px 35px;
+      border: none;
+      background: #b8995f;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .save-btn:hover {
+      background: #947544;
+    }
+
+    /* STATS */
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .stat-box {
+      background: #fff;
+      border: 1px solid #ececec;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 42px;
+      color: #b8995f;
+      margin-bottom: 10px;
+      font-family: 'Prata', serif;
+    }
+
+    .stat-box p {
+      color: #666;
+      font-weight: 500;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #f5f3ea;
+      padding: 70px 0 30px;
+      margin-top: 60px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-title {
+      font-family: 'Prata', serif;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer-column h4 {
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      color: #555;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .newsletter {
+      display: flex;
+      margin-top: 15px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+    }
+
+    .newsletter input {
+      flex: 1;
+      border: none;
+      padding: 14px;
+      outline: none;
+    }
+
+    .newsletter button {
+      border: none;
+      background: #b8995f;
+      color: #fff;
+      padding: 0 25px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      background: #222;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      background: #b8995f;
+    }
+
+    .copyright {
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 992px) {
+
+      .profile-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero h1::before,
+      .hero h1::after {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+    }
+
+    @media (max-width: 768px) {
+
+      .topbar-wrapper,
+      .navbar-wrapper {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .info-grid,
+      .stats-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+        padding: 0;
+      }
+
+      .profile-card {
+        padding: 25px;
+      }
+
+      .card-title {
+        font-size: 24px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+
+
+  </div>
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+    <div class="container navbar-wrapper">
+
+      <div class="logo">BOOKSAW</div>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="cart.html">Cart</a>
+        <a href="">Contact</a>
+        <a href="profile.html" class="active">Profile</a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="container">
+      <small>User Dashboard</small>
+      <h1>My Profile</h1>
+    </div>
+  </section>
+
+  <!-- PROFILE -->
+
+  <section class="profile-section">
+
+    <div class="container">
+
+      <div class="profile-wrapper">
+
+        <!-- SIDEBAR -->
+
+        <aside class="profile-sidebar">
+
+          <div class="profile-image">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1000&auto=format&fit=crop" alt="User">
+          </div>
+
+          <h2 class="profile-name">James Walker</h2>
+          <p class="profile-role">Premium Reader</p>
+
+          <div class="profile-menu">
+            <a href="#" class="active">Profile Overview</a>
+            <a href="order-history.html">My Orders</a>
+            <a href="wishlist.html">Wishlist</a>
+            <a href="createaddress.html">add Addresses</a>
+            <a href="loginSignup.html">Logout</a>
+          </div>
+
+        </aside>
+
+        <!-- CONTENT -->
+
+        <div class="profile-content">
+
+          <!-- STATS -->
+
+          <div class="stats-grid">
+
+            <div class="stat-box">
+              <h3>24</h3>
+              <p>Books Ordered</p>
+            </div>
+
+            <div class="stat-box">
+              <h3>08</h3>
+              <p>Wishlist Items</p>
+            </div>
+
+            <div class="stat-box">
+              <h3>04</h3>
+              <p>Reviews Posted</p>
+            </div>
+
+          </div>
+
+          <!-- PROFILE FORM -->
+
+          <div class="profile-card">
+
+            <h2 class="card-title">Personal Information</h2>
+
+            <div class="info-grid">
+
+              <div class="info-box">
+                <label>First Name</label>
+                <input type="text" value="James">
+              </div>
+
+              <div class="info-box">
+                <label>Last Name</label>
+                <input type="text" value="Walker">
+              </div>
+
+              <div class="info-box">
+                <label>Email Address</label>
+                <input type="email" value="jameswalker@example.com">
+              </div>
+
+              <div class="info-box">
+                <label>Phone Number</label>
+                <input type="text" value="+1 234 567 890">
+              </div>
+
+              <div class="info-box full-width">
+                <label>Address</label>
+                <textarea>221B Baker Street, London, United Kingdom</textarea>
+              </div>
+
+            </div>
+
+            <button class="save-btn">SAVE CHANGES</button>
+
+          </div>
+
+          <!-- PASSWORD -->
+
+          <div class="profile-card">
+
+            <h2 class="card-title">Change Password</h2>
+
+            <div class="info-grid">
+
+              <div class="info-box full-width">
+                <label>Current Password</label>
+                <input type="password" placeholder="Enter current password">
+              </div>
+
+              <div class="info-box">
+                <label>New Password</label>
+                <input type="password" placeholder="Enter new password">
+              </div>
+
+              <div class="info-box">
+                <label>Confirm Password</label>
+                <input type="password" placeholder="Confirm new password">
+              </div>
+
+            </div>
+
+            <button class="save-btn">UPDATE PASSWORD</button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-column">
+          <div class="footer-title">BOOKSAW</div>
+
+          <p>Contact Info</p>
+          <p>+523 455-7890</p>
+          <p>info@booksaw.com</p>
+          <p>support@booksaw.com</p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+
+          <a href="#">About</a>
+          <a href="#">Books</a>
+          <a href="#">Blog</a>
+          <a href="#">Contact</a>
+        </div>
+
+       
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
+```

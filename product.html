@@ -1,0 +1,584 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookSaw - Product Details</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prata&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8f8f6;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    /* TOP HEADER */
+
+    .topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #ececec;
+      padding: 12px 0;
+      font-size: 14px;
+    }
+
+    .topbar-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .social-icons,
+    .top-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .social-icons a,
+    .top-links a {
+      color: #222;
+      transition: 0.3s ease;
+    }
+
+    .social-icons a:hover,
+    .top-links a:hover {
+      color: #b8995f;
+    }
+
+    /* NAVBAR */
+
+    .navbar {
+      background: #fff;
+      padding: 25px 0;
+      border-bottom: 1px solid #efefef;
+    }
+
+    .navbar-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: 'Prata', serif;
+      font-size: 42px;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 35px;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      transition: 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #b8995f;
+    }
+
+    /* HERO SECTION */
+
+    .hero {
+      background: linear-gradient(to right, #f5f2e7, #faf7ee, #f5f2e7);
+      padding: 60px 0;
+      text-align: center;
+    }
+
+    .hero small {
+      display: block;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 15px;
+      color: #666;
+      font-weight: 600;
+    }
+
+    .hero h1 {
+      font-family: 'Prata', serif;
+      font-size: 54px;
+      font-weight: 400;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+      padding: 0 40px;
+    }
+
+    .hero h1::before,
+    .hero h1::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 160px;
+      height: 1px;
+      background: #8f8f8f;
+    }
+
+    .hero h1::before {
+      left: -170px;
+    }
+
+    .hero h1::after {
+      right: -170px;
+    }
+
+    /* PRODUCT SECTION */
+
+    .product-section {
+      padding: 80px 0;
+      background: #fff;
+    }
+
+    .product-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .product-image {
+      background: #f8f8f8;
+      padding: 40px;
+    }
+
+    .product-image img {
+      max-width: 350px;
+      margin: auto;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+    }
+
+    .product-details h2 {
+      font-family: 'Prata', serif;
+      font-size: 48px;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    .author {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #666;
+    }
+
+    .price {
+      font-size: 38px;
+      color: #b8995f;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .rating {
+      margin-bottom: 20px;
+      color: #c5a46d;
+      font-size: 20px;
+    }
+
+    .description {
+      margin-bottom: 30px;
+      color: #555;
+      font-size: 16px;
+    }
+
+    .cart-box {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      overflow: hidden;
+      height: 50px;
+    }
+
+    .quantity button {
+      width: 45px;
+      height: 50px;
+      border: none;
+      background: #f5f5f5;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .quantity input {
+      width: 60px;
+      border: none;
+      text-align: center;
+      font-size: 16px;
+      outline: none;
+    }
+
+    .cart-btn {
+      border: none;
+      background: #b8995f;
+      color: #fff;
+      padding: 15px 40px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .cart-btn:hover {
+      background: #967748;
+    }
+
+    /* TABS */
+
+    .tabs {
+      border-top: 1px solid #e5e5e5;
+      padding-top: 30px;
+    }
+
+    .tab-links {
+      display: flex;
+      gap: 35px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .tab-links a {
+      font-weight: 600;
+      color: #555;
+      position: relative;
+    }
+
+    .tab-links a.active {
+      color: #000;
+    }
+
+    .tab-content {
+      color: #555;
+      max-width: 650px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      background: #f5f3ea;
+      padding: 70px 0 30px;
+      margin-top: 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-title {
+      font-family: 'Prata', serif;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer-column h4 {
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .footer-column p,
+    .footer-column a {
+      color: #555;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .newsletter {
+      display: flex;
+      margin-top: 15px;
+      overflow: hidden;
+      border: 1px solid #ddd;
+    }
+
+    .newsletter input {
+      flex: 1;
+      border: none;
+      padding: 14px;
+      outline: none;
+    }
+
+    .newsletter button {
+      border: none;
+      background: #b8995f;
+      color: white;
+      padding: 0 25px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #222;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s ease;
+    }
+
+    .footer-social a:hover {
+      background: #b8995f;
+    }
+
+    .copyright {
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 992px) {
+
+      .product-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .hero h1::before,
+      .hero h1::after {
+        display: none;
+      }
+
+    }
+
+    @media (max-width: 768px) {
+
+      .navbar-wrapper,
+      .topbar-wrapper {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .product-details h2 {
+        font-size: 34px;
+      }
+
+      .price {
+        font-size: 28px;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+        padding: 0;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cart-btn {
+        width: 100%;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+    <div class="container navbar-wrapper">
+
+      <div class="logo">BOOKSAW</div>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profile.html">Account</a>
+        <a href="cart.html">cart</a>
+        <a href="wishlist.html">wishlist</a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="container">
+      <small>Shop</small>
+      <h1>Simple Way Of Piece Life</h1>
+    </div>
+  </section>
+
+  <!-- PRODUCT -->
+
+  <section class="product-section">
+
+    <div class="container">
+
+      <div class="product-wrapper">
+
+        <div class="product-image">
+          <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=1200&auto=format&fit=crop" alt="Book">
+        </div>
+
+        <div class="product-details">
+
+          <h2>Simple Way Of Piece Life</h2>
+
+          <div class="author">James Clear</div>
+
+          <div class="price">$40.00</div>
+
+          <div class="rating">★★★★★</div>
+
+          <p class="description">
+            Discover the art of living peacefully with simple practices. This book guides you through mindful habits and decluttering your mind for a harmonious life.
+          </p>
+
+          <div class="cart-box">
+
+            <div class="quantity">
+              <button>-</button>
+              <input type="text" value="1">
+              <button>+</button>
+            </div>
+        <button class="cart-btn">Buy Now</button>
+            <button class="cart-btn">ADD TO CART</button>
+
+          </div>
+
+          <div class="tabs">
+
+            <div class="tab-links">
+              <a href="#" class="active">Description</a>
+              <a href="#">Additional Information</a>
+              <a href="#">Reviews (3)</a>
+            </div>
+
+            <div class="tab-content">
+              <p>
+                Discover the art of living peacefully with simple practices. This book guides you through mindful habits and decluttering your mind for a harmonious life. Find calmness through practical steps, emotional balance, and focused routines that improve your daily life.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-column">
+          <div class="footer-title">BOOKSAW</div>
+
+          <p>Contact Info</p>
+          <p>+523 455-7890</p>
+          <p>info@booksaw.com</p>
+          <p>support@booksaw.com</p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+
+          <a href="#">About</a>
+          <a href="#">Books</a>
+          <a href="#">Blog</a>
+          <a href="#">Contact</a>
+        </div>
+
+
+
+
+      </div>
+
+      <div class="copyright">
+        © 2025 BookSaw — Responsive Product Page
+      </div>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
+```

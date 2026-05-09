@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,13 +11,48 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body { background:#f1f5f9; font-family:Segoe UI; }
-.sidebar { width:240px; height:100vh; position:fixed; background:#0f172a; color:#fff; }
-.sidebar a { display:block; padding:12px; color:#cbd5e1; cursor:pointer; }
-.sidebar a:hover, .active { background:#3b82f6; color:#fff; }
-.main { margin-left:240px; padding:20px; }
-.card { border:none; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
-.page { display:none; }
+body {
+  background:#f1f5f9;
+  font-family:Segoe UI;
+}
+
+.sidebar {
+  width:240px;
+  height:100vh;
+  position:fixed;
+  background:#0f172a;
+  color:#fff;
+  overflow-y:auto;
+}
+
+.sidebar a {
+  display:block;
+  padding:12px;
+  color:#cbd5e1;
+  cursor:pointer;
+  text-decoration:none;
+}
+
+.sidebar a:hover,
+.active {
+  background:#3b82f6;
+  color:#fff;
+}
+
+.main {
+  margin-left:240px;
+  padding:20px;
+}
+
+.card {
+  border:none;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.page {
+  display:none;
+}
 </style>
 </head>
 
@@ -24,21 +60,75 @@ body { background:#f1f5f9; font-family:Segoe UI; }
 
 <div class="sidebar">
   <h5 class="text-center mt-3">Admin</h5>
+
+  <a onclick="showPage('dashboard')">Dashboard</a>
   <a onclick="showPage('products')">Products</a>
   <a onclick="showPage('categories')">Categories</a>
   <a onclick="showPage('orders')">Orders</a>
+  <a onclick="showPage('offers')">Offers</a>
+  <a onclick="showPage('coupons')">Coupons</a>
   <a onclick="showPage('users')">Users</a>
   <a onclick="showPage('reports')">Reports</a>
 </div>
 
 <div class="main">
 
+<!-- DASHBOARD -->
+<div id="dashboard" class="page">
+  <h4>Dashboard</h4>
+
+  <div class="row g-3">
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6>Total Products</h6>
+        <h3 id="totalProducts">0</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6>Total Orders</h6>
+        <h3 id="totalOrders">0</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6>Total Users</h6>
+        <h3 id="totalUsers">0</h3>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6>Total Revenue</h6>
+        <h3>$4500</h3>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <!-- PRODUCTS -->
 <div id="products" class="page">
   <h4>Products</h4>
-  <button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#productModal">Add Product</button>
+
+  <button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#productModal">
+    Add Product
+  </button>
+
   <table class="table">
-    <thead><tr><th>Name</th><th>Price</th><th>Actions</th></tr></thead>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Variants</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
     <tbody id="productTable"></tbody>
   </table>
 </div>
@@ -47,10 +137,16 @@ body { background:#f1f5f9; font-family:Segoe UI; }
 <div class="modal fade" id="productModal">
 <div class="modal-dialog">
 <div class="modal-content p-3">
+
   <h5>Add Product</h5>
+
   <input id="pName" class="form-control mb-2" placeholder="Name">
   <input id="pPrice" class="form-control mb-2" placeholder="Price">
+  <input id="pStock" class="form-control mb-2" placeholder="Stock">
+  <input id="pVariants" class="form-control mb-2" placeholder="Variants comma separated">
+
   <input type="hidden" id="editIndex">
+
   <button class="btn btn-success" onclick="saveProduct()">Save</button>
 </div>
 </div>
@@ -59,27 +155,100 @@ body { background:#f1f5f9; font-family:Segoe UI; }
 <!-- CATEGORIES -->
 <div id="categories" class="page">
   <h4>Categories</h4>
+
   <input id="catInput" class="form-control mb-2" placeholder="New Category">
+
   <button class="btn btn-primary mb-2" onclick="addCategory()">Add</button>
+
   <ul id="catList" class="list-group"></ul>
 </div>
 
 <!-- ORDERS -->
 <div id="orders" class="page">
   <h4>Orders</h4>
+
   <button class="btn btn-secondary" onclick="filterOrders('all')">All</button>
   <button class="btn btn-warning" onclick="filterOrders('Pending')">Pending</button>
   <button class="btn btn-success" onclick="filterOrders('Delivered')">Delivered</button>
+
   <table class="table mt-2">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Customer</th>
+        <th>Total</th>
+        <th>Payment</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
     <tbody id="orderTable"></tbody>
   </table>
+</div>
+
+<!-- OFFERS -->
+<div id="offers" class="page">
+  <h4>Offers</h4>
+
+  <div class="card p-3">
+
+    <input id="offerName" class="form-control mb-2" placeholder="Offer Name">
+    <input id="offerDiscount" class="form-control mb-2" placeholder="Discount %">
+
+    <button class="btn btn-primary mb-3" onclick="addOffer()">Add Offer</button>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Offer</th>
+          <th>Discount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="offerTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- COUPONS -->
+<div id="coupons" class="page">
+  <h4>Coupons</h4>
+
+  <div class="card p-3">
+
+    <input id="couponCode" class="form-control mb-2" placeholder="Coupon Code">
+    <input id="couponDiscount" class="form-control mb-2" placeholder="Discount %">
+
+    <button class="btn btn-success mb-3" onclick="addCoupon()">Create Coupon</button>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Discount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="couponTable"></tbody>
+    </table>
+  </div>
 </div>
 
 <!-- USERS -->
 <div id="users" class="page">
   <h4>Users</h4>
+
   <table class="table">
-    <thead><tr><th>Name</th><th>Status</th><th>Action</th></tr></thead>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
     <tbody id="userTable"></tbody>
   </table>
 </div>
@@ -88,11 +257,36 @@ body { background:#f1f5f9; font-family:Segoe UI; }
 <div id="reports" class="page">
   <h4>Sales Report & Revenue</h4>
 
-  <div class="row mb-3">
-    <div class="col-md-3"><div class="card p-3 text-center"><h6>Total Revenue</h6><h4>$4500</h4></div></div>
-    <div class="col-md-3"><div class="card p-3 text-center"><h6>Total Orders</h6><h4>120</h4></div></div>
-    <div class="col-md-3"><div class="card p-3 text-center"><h6>Delivered</h6><h4>80</h4></div></div>
-    <div class="col-md-3"><div class="card p-3 text-center"><h6>Pending</h6><h4>40</h4></div></div>
+  <div class="row mb-3 g-3">
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6>Total Revenue</h6>
+        <h4>$4500</h4>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6>Total Orders</h6>
+        <h4>120</h4>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6>Delivered</h6>
+        <h4>80</h4>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card p-3 text-center">
+        <h6>Pending</h6>
+        <h4>40</h4>
+      </div>
+    </div>
+
   </div>
 
   <div class="card p-3 mb-3">
@@ -100,14 +294,80 @@ body { background:#f1f5f9; font-family:Segoe UI; }
     <canvas id="chart"></canvas>
   </div>
 
-  <div class="card p-3">
-    <h6>Recent Transactions</h6>
+  <div class="card p-3 mt-3">
+    <h6>Sales Report</h6>
+
     <table class="table">
-      <thead><tr><th>ID</th><th>User</th><th>Amount</th><th>Status</th></tr></thead>
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Sales</th>
+          <th>Revenue</th>
+        </tr>
+      </thead>
+
       <tbody>
-        <tr><td>#101</td><td>John Doe</td><td>$200</td><td><span class="badge bg-success">Paid</span></td></tr>
-        <tr><td>#102</td><td>Anna Smith</td><td>$350</td><td><span class="badge bg-warning">Pending</span></td></tr>
-        <tr><td>#103</td><td>Rahul Kumar</td><td>$150</td><td><span class="badge bg-success">Paid</span></td></tr>
+        <tr>
+          <td>January</td>
+          <td>25</td>
+          <td>$500</td>
+        </tr>
+
+        <tr>
+          <td>February</td>
+          <td>40</td>
+          <td>$800</td>
+        </tr>
+
+        <tr>
+          <td>March</td>
+          <td>60</td>
+          <td>$1200</td>
+        </tr>
+
+        <tr>
+          <td>April</td>
+          <td>75</td>
+          <td>$1500</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card p-3 mt-3">
+    <h6>Recent Transactions</h6>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>#101</td>
+          <td>John Doe</td>
+          <td>$200</td>
+          <td><span class="badge bg-success">Paid</span></td>
+        </tr>
+
+        <tr>
+          <td>#102</td>
+          <td>Anna Smith</td>
+          <td>$350</td>
+          <td><span class="badge bg-warning">Pending</span></td>
+        </tr>
+
+        <tr>
+          <td>#103</td>
+          <td>Rahul Kumar</td>
+          <td>$150</td>
+          <td><span class="badge bg-success">Paid</span></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -116,19 +376,65 @@ body { background:#f1f5f9; font-family:Segoe UI; }
 </div>
 
 <script>
+
 let products=[
-  {name:'Laptop',price:1200},
-  {name:'Smartphone',price:800},
-  {name:'Headphones',price:150},
-  {name:'Monitor',price:300}
+  {
+    name:'Atomic Habits',
+    price:620,
+    stock:25,
+    variants:['Hardcover','Paperback']
+  },
+  {
+    name:'Alchemist',
+    price:450,
+    stock:18,
+    variants:['English','Malayalam']
+  },
+  {
+    name:'Rejection proof',
+    price:550,
+    stock:10,
+    variants:['Premium','Normal']
+  },
+  {
+    name:'mindset',
+    price:300,
+    stock:40,
+    variants:['Pocket Edition']
+  }
 ];
-let categories=['Electronics','Accessories','Home Appliances','Gaming'];
+
+let categories=[
+  {name:'Electronics',status:'Active'},
+  {name:'Accessories',status:'Active'},
+  {name:'Home Appliances',status:'Inactive'},
+  {name:'Gaming',status:'Active'}
+];
+
 let orders=[
-  {id:1,status:'Pending'},
-  {id:2,status:'Delivered'},
-  {id:3,status:'Pending'},
-  {id:4,status:'Delivered'}
+  {
+    id:1,
+    customer:'John Doe',
+    total:1200,
+    payment:'COD',
+    status:'Pending'
+  },
+  {
+    id:2,
+    customer:'Anna Smith',
+    total:850,
+    payment:'Online',
+    status:'Delivered'
+  },
+  {
+    id:3,
+    customer:'Rahul Kumar',
+    total:540,
+    payment:'UPI',
+    status:'Pending'
+  }
 ];
+
 let users=[
   {name:'John Doe',blocked:false},
   {name:'Anna Smith',blocked:true},
@@ -138,12 +444,20 @@ let users=[
   {name:'Priya Nair',blocked:false}
 ];
 
+let offers=[];
+let coupons=[];
+
 function init(){
-  showPage('products');
+  showPage('dashboard');
+
   renderProducts();
   renderCategories();
   renderOrders(orders);
   renderUsers();
+  renderOffers();
+  renderCoupons();
+
+  loadDashboard();
   loadChart();
 }
 
@@ -152,71 +466,269 @@ function showPage(page){
   document.getElementById(page).style.display='block';
 }
 
+function loadDashboard(){
+  totalProducts.innerText=products.length;
+  totalOrders.innerText=orders.length;
+  totalUsers.innerText=users.length;
+}
+
 function saveProduct(){
-  let name=pName.value, price=pPrice.value, i=editIndex.value;
-  if(i==='') products.push({name,price}); else products[i]={name,price};
+
+  let name=pName.value.trim();
+  let price=Number(pPrice.value);
+  let stock=Number(pStock.value);
+  let variants=pVariants.value.split(',').map(v=>v.trim());
+  let i=editIndex.value;
+
+  if(!name || !price || !stock){
+    alert('Please fill all fields');
+    return;
+  }
+
+  if(i===''){
+    products.push({name,price,stock,variants});
+  }else{
+    products[i]={name,price,stock,variants};
+  }
+
   renderProducts();
+  loadDashboard();
+
+  pName.value='';
+  pPrice.value='';
+  pStock.value='';
+  pVariants.value='';
+  editIndex.value='';
+
+  bootstrap.Modal.getInstance(productModal).hide();
 }
 
 function renderProducts(){
   productTable.innerHTML=products.map((p,i)=>`<tr>
-  <td>${p.name}</td>
-  <td>${p.price}</td>
-  <td>
-  <button class='btn btn-info btn-sm' onclick='editProduct(${i})'>Edit</button>
-  <button class='btn btn-danger btn-sm' onclick='deleteProduct(${i})'>Delete</button>
-  </td></tr>`).join('');
+    <td>${p.name}</td>
+    <td>${p.price}</td>
+    <td>${p.stock}</td>
+    <td>${p.variants.join(', ')}</td>
+    <td>
+      <button class='btn btn-info btn-sm' onclick='editProduct(${i})'>Edit</button>
+      <button class='btn btn-danger btn-sm' onclick='deleteProduct(${i})'>Delete</button>
+    </td>
+  </tr>`).join('');
 }
 
 function editProduct(i){
   pName.value=products[i].name;
   pPrice.value=products[i].price;
+  pStock.value=products[i].stock;
+  pVariants.value=products[i].variants.join(',');
   editIndex.value=i;
+
   new bootstrap.Modal(productModal).show();
 }
 
-function deleteProduct(i){ products.splice(i,1); renderProducts(); }
-
-function addCategory(){ categories.push(catInput.value); renderCategories(); }
-function renderCategories(){ catList.innerHTML=categories.map((c,i)=>`<li class='list-group-item d-flex justify-content-between'>${c}<button class='btn btn-danger btn-sm' onclick='deleteCategory(${i})'>X</button></li>`).join(''); }
-function deleteCategory(i){ categories.splice(i,1); renderCategories(); }
-
-function renderOrders(data){
-  orderTable.innerHTML=data.map(o=>`<tr><td>#${o.id}</td>
-  <td><select onchange="updateOrder(${o.id},this.value)">
-  <option ${o.status==='Pending'?'selected':''}>Pending</option>
-  <option ${o.status==='Delivered'?'selected':''}>Delivered</option>
-  </select></td></tr>`).join('');
+function deleteProduct(i){
+  products.splice(i,1);
+  renderProducts();
+  loadDashboard();
 }
 
-function filterOrders(s){ s==='all'?renderOrders(orders):renderOrders(orders.filter(o=>o.status===s)); }
-function updateOrder(id,v){ orders.find(o=>o.id===id).status=v; }
+function addCategory(){
 
-function renderUsers(){
-  userTable.innerHTML=users.map((u,i)=>`<tr>
-  <td>${u.name}</td>
-  <td><span class='badge ${u.blocked?'bg-danger':'bg-success'}'>${u.blocked?'Blocked':'Active'}</span></td>
-  <td>
-    <button class='btn btn-sm ${u.blocked?'btn-success':'btn-warning'}' onclick='toggleUser(${i})'>
-      ${u.blocked?'Unblock':'Block'}
-    </button>
-    <button class='btn btn-sm btn-danger ms-1' onclick='deleteUser(${i})'>Delete</button>
-  </td>
+  if(!catInput.value.trim()) return;
+
+  categories.push({
+    name:catInput.value,
+    status:'Active'
+  });
+
+  renderCategories();
+  catInput.value='';
+}
+
+function renderCategories(){
+
+  catList.innerHTML=categories.map((c,i)=>`
+    <li class='list-group-item d-flex justify-content-between align-items-center'>
+
+      <div>
+        <strong>${c.name}</strong>
+        <span class='badge ${c.status==='Active'?'bg-success':'bg-danger'} ms-2'>
+          ${c.status}
+        </span>
+      </div>
+
+      <div>
+        <button class='btn btn-warning btn-sm' onclick='toggleCategory(${i})'>Toggle</button>
+        <button class='btn btn-danger btn-sm' onclick='deleteCategory(${i})'>Delete</button>
+      </div>
+
+    </li>
+  `).join('');
+}
+
+function toggleCategory(i){
+  categories[i].status=
+  categories[i].status==='Active'?'Inactive':'Active';
+
+  renderCategories();
+}
+
+function deleteCategory(i){
+  categories.splice(i,1);
+  renderCategories();
+}
+
+function renderOrders(data){
+
+  orderTable.innerHTML=data.map(o=>`<tr>
+
+    <td>#${o.id}</td>
+    <td>${o.customer}</td>
+    <td>$${o.total}</td>
+    <td>${o.payment}</td>
+
+    <td>
+      <select class='form-select' onchange="updateOrder(${o.id},this.value)">
+        <option ${o.status==='Pending'?'selected':''}>Pending</option>
+        <option ${o.status==='Delivered'?'selected':''}>Delivered</option>
+      </select>
+    </td>
+
   </tr>`).join('');
 }
 
-function deleteUser(i){ users.splice(i,1); renderUsers(); }
+function filterOrders(s){
+  s==='all'
+  ? renderOrders(orders)
+  : renderOrders(orders.filter(o=>o.status===s));
+}
 
-function toggleUser(i){ users[i].blocked=!users[i].blocked; renderUsers(); }
+function updateOrder(id,v){
+  orders.find(o=>o.id===id).status=v;
+}
+
+function renderUsers(){
+
+  userTable.innerHTML=users.map((u,i)=>`<tr>
+
+    <td>${u.name}</td>
+
+    <td>
+      <span class='badge ${u.blocked?'bg-danger':'bg-success'}'>
+        ${u.blocked?'Blocked':'Active'}
+      </span>
+    </td>
+
+    <td>
+      <button class='btn btn-sm ${u.blocked?'btn-success':'btn-warning'}' onclick='toggleUser(${i})'>
+        ${u.blocked?'Unblock':'Block'}
+      </button>
+
+      <button class='btn btn-sm btn-danger ms-1' onclick='deleteUser(${i})'>Delete</button>
+    </td>
+
+  </tr>`).join('');
+}
+
+function toggleUser(i){
+  users[i].blocked=!users[i].blocked;
+  renderUsers();
+}
+
+function deleteUser(i){
+  users.splice(i,1);
+  renderUsers();
+  loadDashboard();
+}
+
+function addOffer(){
+
+  if(!offerName.value || !offerDiscount.value) return;
+
+  offers.push({
+    name:offerName.value,
+    discount:offerDiscount.value
+  });
+
+  renderOffers();
+
+  offerName.value='';
+  offerDiscount.value='';
+}
+
+function renderOffers(){
+
+  offerTable.innerHTML=offers.map((o,i)=>`<tr>
+
+    <td>${o.name}</td>
+    <td>${o.discount}%</td>
+
+    <td>
+      <button class='btn btn-danger btn-sm' onclick='deleteOffer(${i})'>Delete</button>
+    </td>
+
+  </tr>`).join('');
+}
+
+function deleteOffer(i){
+  offers.splice(i,1);
+  renderOffers();
+}
+
+function addCoupon(){
+
+  if(!couponCode.value || !couponDiscount.value) return;
+
+  coupons.push({
+    code:couponCode.value,
+    discount:couponDiscount.value
+  });
+
+  renderCoupons();
+
+  couponCode.value='';
+  couponDiscount.value='';
+}
+
+function renderCoupons(){
+
+  couponTable.innerHTML=coupons.map((c,i)=>`<tr>
+
+    <td>${c.code}</td>
+    <td>${c.discount}%</td>
+
+    <td>
+      <button class='btn btn-danger btn-sm' onclick='deleteCoupon(${i})'>Delete</button>
+    </td>
+
+  </tr>`).join('');
+}
+
+function deleteCoupon(i){
+  coupons.splice(i,1);
+  renderCoupons();
+}
 
 function loadChart(){
+
   new Chart(document.getElementById('chart'),{
+
     type:'line',
-    data:{labels:['Jan','Feb','Mar','Apr'],datasets:[{label:'Revenue',data:[500,800,1200,1500]}]}
+
+    data:{
+      labels:['Jan','Feb','Mar','Apr'],
+
+      datasets:[{
+        label:'Revenue',
+        data:[500,800,1200,1500]
+      }]
+    }
   });
 }
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+```
