@@ -1,65 +1,147 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced Admin System</title>
+
+<title>Advanced Admin Panel</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-body {
+
+body{
   background:#f1f5f9;
   font-family:Segoe UI;
 }
 
-.sidebar {
+.sidebar{
   width:240px;
   height:100vh;
   position:fixed;
   background:#0f172a;
-  color:#fff;
+  color:white;
   overflow-y:auto;
 }
 
-.sidebar a {
+.sidebar h4{
+  padding:20px;
+}
+
+.sidebar a{
   display:block;
-  padding:12px;
+  padding:12px 20px;
   color:#cbd5e1;
-  cursor:pointer;
   text-decoration:none;
+  cursor:pointer;
 }
 
-.sidebar a:hover,
-.active {
-  background:#3b82f6;
-  color:#fff;
+.sidebar a:hover{
+  background:#2563eb;
+  color:white;
 }
 
-.main {
+.main{
   margin-left:240px;
   padding:20px;
 }
 
-.card {
-  border:none;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-.page {
+.page{
   display:none;
 }
+
+.card{
+  border:none;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.product-img{
+  width:60px;
+  height:60px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.stat-card{
+  text-align:center;
+  padding:20px;
+}
+
+.table th{
+  background:#0f172a;
+  color:white;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+  gap:15px;
+}
+
+.search-box{
+  position:relative;
+  width:300px;
+}
+
+.search-box i{
+  position:absolute;
+  top:12px;
+  left:12px;
+  color:#64748b;
+}
+
+.search-box input{
+  padding-left:38px;
+  border-radius:10px;
+}
+
+.logout-btn{
+  border-radius:10px;
+}
+
+.activity-box{
+  max-height:250px;
+  overflow-y:auto;
+}
+
+@media(max-width:768px){
+
+  .sidebar{
+    width:100%;
+    height:auto;
+    position:relative;
+  }
+
+  .main{
+    margin-left:0;
+  }
+
+  .topbar{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .search-box{
+    width:100%;
+  }
+
+}
+
 </style>
 </head>
 
 <body onload="init()">
 
+<!-- SIDEBAR -->
+
 <div class="sidebar">
-  <h5 class="text-center mt-3">Admin</h5>
+
+  <h4>Admin Panel</h4>
 
   <a onclick="showPage('dashboard')">Dashboard</a>
   <a onclick="showPage('products')">Products</a>
@@ -69,58 +151,101 @@ body {
   <a onclick="showPage('coupons')">Coupons</a>
   <a onclick="showPage('users')">Users</a>
   <a onclick="showPage('reports')">Reports</a>
+
 </div>
+
+<!-- MAIN -->
 
 <div class="main">
 
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+  <div class="search-box">
+
+    <i class="fa fa-search"></i>
+
+    <input
+      type="text"
+      id="globalSearch"
+      class="form-control"
+      placeholder="Search here..."
+      onkeyup="globalSearch()">
+
+  </div>
+
+  <button class="btn btn-danger logout-btn" onclick="logout()">
+
+    <i class="fa fa-sign-out-alt"></i> Logout
+
+  </button>
+
+</div>
+
 <!-- DASHBOARD -->
+
 <div id="dashboard" class="page">
-  <h4>Dashboard</h4>
+
+  <h3 class="mb-4">Dashboard</h3>
 
   <div class="row g-3">
 
     <div class="col-md-3">
-      <div class="card p-3 text-center">
+      <div class="card stat-card">
         <h6>Total Products</h6>
         <h3 id="totalProducts">0</h3>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="card p-3 text-center">
+      <div class="card stat-card">
         <h6>Total Orders</h6>
         <h3 id="totalOrders">0</h3>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="card p-3 text-center">
+      <div class="card stat-card">
         <h6>Total Users</h6>
         <h3 id="totalUsers">0</h3>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="card p-3 text-center">
+      <div class="card stat-card">
         <h6>Total Revenue</h6>
-        <h3>$4500</h3>
+        <h3 id="totalRevenue">$0</h3>
       </div>
     </div>
 
   </div>
+
 </div>
 
 <!-- PRODUCTS -->
+
 <div id="products" class="page">
-  <h4>Products</h4>
 
-  <button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#productModal">
-    Add Product
-  </button>
+  <div class="d-flex justify-content-between align-items-center mb-3">
 
-  <table class="table">
+    <h3>Products</h3>
+
+    <button class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#productModal">
+
+      Add Product
+
+    </button>
+
+  </div>
+
+  <table class="table table-bordered align-middle">
+
     <thead>
       <tr>
+        <th>Image</th>
         <th>Name</th>
         <th>Price</th>
         <th>Stock</th>
@@ -130,49 +255,78 @@ body {
     </thead>
 
     <tbody id="productTable"></tbody>
+
   </table>
+
 </div>
 
 <!-- PRODUCT MODAL -->
+
 <div class="modal fade" id="productModal">
+
 <div class="modal-dialog">
-<div class="modal-content p-3">
 
-  <h5>Add Product</h5>
+<div class="modal-content p-4">
 
-  <input id="pName" class="form-control mb-2" placeholder="Name">
-  <input id="pPrice" class="form-control mb-2" placeholder="Price">
-  <input id="pStock" class="form-control mb-2" placeholder="Stock">
+  <h4 class="mb-3">Add / Edit Product</h4>
+
+  <input id="pName" class="form-control mb-2" placeholder="Product Name">
+
+  <input id="pPrice" type="number" class="form-control mb-2" placeholder="Price">
+
+  <input id="pStock" type="number" class="form-control mb-2" placeholder="Stock">
+
   <input id="pVariants" class="form-control mb-2" placeholder="Variants comma separated">
+
+  <input id="pImage" class="form-control mb-3" placeholder="Image URL">
 
   <input type="hidden" id="editIndex">
 
-  <button class="btn btn-success" onclick="saveProduct()">Save</button>
+  <button class="btn btn-success" onclick="saveProduct()">
+    Save Product
+  </button>
+
 </div>
+
 </div>
 </div>
 
 <!-- CATEGORIES -->
+
 <div id="categories" class="page">
-  <h4>Categories</h4>
 
-  <input id="catInput" class="form-control mb-2" placeholder="New Category">
+  <h3>Categories</h3>
 
-  <button class="btn btn-primary mb-2" onclick="addCategory()">Add</button>
+  <input id="catInput" class="form-control mb-2" placeholder="Category Name">
+
+  <button class="btn btn-primary mb-3" onclick="addCategory()">
+    Add Category
+  </button>
 
   <ul id="catList" class="list-group"></ul>
+
 </div>
 
 <!-- ORDERS -->
+
 <div id="orders" class="page">
-  <h4>Orders</h4>
+
+  <h3>Orders</h3>
 
   <button class="btn btn-secondary" onclick="filterOrders('all')">All</button>
-  <button class="btn btn-warning" onclick="filterOrders('Pending')">Pending</button>
-  <button class="btn btn-success" onclick="filterOrders('Delivered')">Delivered</button>
 
-  <table class="table mt-2">
+  <button class="btn btn-warning" onclick="filterOrders('Pending')">
+    Pending
+  </button>
+
+  <button class="btn btn-success" onclick="filterOrders('Delivered')">
+    Delivered
+  </button>
+
+  <table class="table table-bordered mt-3">
+
     <thead>
+
       <tr>
         <th>ID</th>
         <th>Customer</th>
@@ -180,274 +334,426 @@ body {
         <th>Payment</th>
         <th>Status</th>
       </tr>
+
     </thead>
 
     <tbody id="orderTable"></tbody>
+
   </table>
+
 </div>
 
 <!-- OFFERS -->
+
 <div id="offers" class="page">
-  <h4>Offers</h4>
 
-  <div class="card p-3">
+  <h3>Offers Management</h3>
 
-    <input id="offerName" class="form-control mb-2" placeholder="Offer Name">
-    <input id="offerDiscount" class="form-control mb-2" placeholder="Discount %">
+  <div class="card p-4">
 
-    <button class="btn btn-primary mb-3" onclick="addOffer()">Add Offer</button>
+    <div class="row">
 
-    <table class="table">
+      <div class="col-md-3">
+        <input
+          id="offerName"
+          class="form-control mb-3"
+          placeholder="Offer Name">
+      </div>
+
+      <div class="col-md-2">
+        <input
+          id="offerDiscount"
+          type="number"
+          class="form-control mb-3"
+          placeholder="Discount %">
+      </div>
+
+      <div class="col-md-2">
+        <select
+          id="offerType"
+          class="form-select mb-3">
+
+          <option value="Product">Product</option>
+          <option value="Category">Category</option>
+
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <input
+          id="offerTarget"
+          class="form-control mb-3"
+          placeholder="Product/Category">
+      </div>
+
+      <div class="col-md-1">
+        <input
+          id="offerStart"
+          type="date"
+          class="form-control mb-3">
+      </div>
+
+      <div class="col-md-1">
+        <input
+          id="offerEnd"
+          type="date"
+          class="form-control mb-3">
+      </div>
+
+      <div class="col-md-1">
+        <select
+          id="offerStatus"
+          class="form-select mb-3">
+
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+
+        </select>
+      </div>
+
+    </div>
+
+    <input type="hidden" id="offerEditIndex">
+
+    <button
+      class="btn btn-primary mb-4"
+      onclick="saveOffer()">
+
+      Save Offer
+
+    </button>
+
+    <table class="table table-bordered">
+
       <thead>
+
         <tr>
           <th>Offer</th>
           <th>Discount</th>
-          <th>Action</th>
+          <th>Assigned To</th>
+          <th>Type</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Status</th>
+          <th>Actions</th>
         </tr>
+
       </thead>
 
       <tbody id="offerTable"></tbody>
+
     </table>
+
   </div>
+
 </div>
 
 <!-- COUPONS -->
+
 <div id="coupons" class="page">
-  <h4>Coupons</h4>
 
-  <div class="card p-3">
+  <h3>Coupons</h3>
 
-    <input id="couponCode" class="form-control mb-2" placeholder="Coupon Code">
-    <input id="couponDiscount" class="form-control mb-2" placeholder="Discount %">
+  <div class="card p-4">
 
-    <button class="btn btn-success mb-3" onclick="addCoupon()">Create Coupon</button>
+    <div class="row">
 
-    <table class="table">
+      <div class="col-md-3">
+        <input id="couponCode"
+          class="form-control mb-2"
+          placeholder="Coupon Code">
+      </div>
+
+      <div class="col-md-2">
+        <input id="couponDiscount"
+          type="number"
+          class="form-control mb-2"
+          placeholder="Discount %">
+      </div>
+
+      <div class="col-md-3">
+        <input id="couponExpiry"
+          type="date"
+          class="form-control mb-2">
+      </div>
+
+      <div class="col-md-2">
+        <input id="couponUsage"
+          type="number"
+          class="form-control mb-2"
+          placeholder="Usage Count">
+      </div>
+
+      <div class="col-md-2">
+        <select id="couponStatus"
+          class="form-select mb-2">
+
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+
+        </select>
+      </div>
+
+    </div>
+
+    <input type="hidden" id="couponEditIndex">
+
+    <button class="btn btn-success mb-3"
+      onclick="saveCoupon()">
+
+      Save Coupon
+
+    </button>
+
+    <table class="table table-bordered">
+
       <thead>
+
         <tr>
-          <th>Code</th>
+          <th>Coupon Code</th>
           <th>Discount</th>
-          <th>Action</th>
+          <th>Expiry Date</th>
+          <th>Usage Count</th>
+          <th>Status</th>
+          <th>Actions</th>
         </tr>
+
       </thead>
 
       <tbody id="couponTable"></tbody>
+
     </table>
+
   </div>
+
 </div>
 
 <!-- USERS -->
-<div id="users" class="page">
-  <h4>Users</h4>
 
-  <table class="table">
+<div id="users" class="page">
+
+  <h3>Users</h3>
+
+  <table class="table table-bordered">
+
     <thead>
+
       <tr>
         <th>Name</th>
         <th>Status</th>
         <th>Action</th>
       </tr>
+
     </thead>
 
     <tbody id="userTable"></tbody>
+
   </table>
+
 </div>
 
 <!-- REPORTS -->
+
 <div id="reports" class="page">
-  <h4>Sales Report & Revenue</h4>
 
-  <div class="row mb-3 g-3">
+  <h3 class="mb-4">Analytics & Reports</h3>
+
+  <div class="row g-3 mb-4">
 
     <div class="col-md-3">
-      <div class="card p-3 text-center">
+      <div class="card stat-card">
         <h6>Total Revenue</h6>
-        <h4>$4500</h4>
+        <h3 id="reportRevenue">$0</h3>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="card p-3 text-center">
-        <h6>Total Orders</h6>
-        <h4>120</h4>
+      <div class="card stat-card">
+        <h6>Delivered Orders</h6>
+        <h3 id="reportDelivered">0</h3>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="card p-3 text-center">
-        <h6>Delivered</h6>
-        <h4>80</h4>
+      <div class="card stat-card">
+        <h6>Pending Orders</h6>
+        <h3 id="reportPending">0</h3>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="card p-3 text-center">
-        <h6>Pending</h6>
-        <h4>40</h4>
+      <div class="card stat-card">
+        <h6>Blocked Users</h6>
+        <h3 id="reportBlocked">0</h3>
       </div>
     </div>
 
   </div>
 
-  <div class="card p-3 mb-3">
-    <h6>Monthly Revenue</h6>
-    <canvas id="chart"></canvas>
+  <div class="row g-4">
+
+    <div class="col-md-6">
+
+      <div class="card p-4">
+
+        <h5 class="mb-3">Monthly Revenue</h5>
+
+        <canvas id="chart"></canvas>
+
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+      <div class="card p-4">
+
+        <h5 class="mb-3">Order Status</h5>
+
+        <canvas id="orderChart"></canvas>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div class="card p-3 mt-3">
-    <h6>Sales Report</h6>
+  <div class="card p-4 mt-4">
 
-    <table class="table">
+    <h5 class="mb-3">Top Products</h5>
+
+    <table class="table table-bordered">
+
       <thead>
-        <tr>
-          <th>Month</th>
-          <th>Sales</th>
-          <th>Revenue</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>January</td>
-          <td>25</td>
-          <td>$500</td>
-        </tr>
 
         <tr>
-          <td>February</td>
-          <td>40</td>
-          <td>$800</td>
-        </tr>
-
-        <tr>
-          <td>March</td>
-          <td>60</td>
-          <td>$1200</td>
-        </tr>
-
-        <tr>
-          <td>April</td>
-          <td>75</td>
-          <td>$1500</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="card p-3 mt-3">
-    <h6>Recent Transactions</h6>
-
-    <table class="table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>User</th>
-          <th>Amount</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Stock</th>
           <th>Status</th>
         </tr>
+
       </thead>
 
-      <tbody>
-        <tr>
-          <td>#101</td>
-          <td>John Doe</td>
-          <td>$200</td>
-          <td><span class="badge bg-success">Paid</span></td>
-        </tr>
+      <tbody id="topProductTable"></tbody>
 
-        <tr>
-          <td>#102</td>
-          <td>Anna Smith</td>
-          <td>$350</td>
-          <td><span class="badge bg-warning">Pending</span></td>
-        </tr>
-
-        <tr>
-          <td>#103</td>
-          <td>Rahul Kumar</td>
-          <td>$150</td>
-          <td><span class="badge bg-success">Paid</span></td>
-        </tr>
-      </tbody>
     </table>
+
   </div>
+
+  <div class="card p-4 mt-4">
+
+    <h5 class="mb-3">Recent Activities</h5>
+
+    <ul class="list-group activity-box" id="activityList"></ul>
+
+  </div>
+
 </div>
 
 </div>
 
 <script>
 
-let products=[
-  {
-    name:'Atomic Habits',
-    price:620,
-    stock:25,
-    variants:['Hardcover','Paperback']
-  },
-  {
-    name:'Alchemist',
-    price:450,
-    stock:18,
-    variants:['English','Malayalam']
-  },
-  {
-    name:'Rejection proof',
-    price:550,
-    stock:10,
-    variants:['Premium','Normal']
-  },
-  {
-    name:'mindset',
-    price:300,
-    stock:40,
-    variants:['Pocket Edition']
-  }
+/* PRODUCTS */
+
+let products = [
+
+{
+  name:'Atomic Habits',
+  price:620,
+  stock:25,
+  variants:['Hardcover','Paperback'],
+  image:'https://picsum.photos/100?1'
+},
+
+{
+  name:'Alchemist',
+  price:450,
+  stock:18,
+  variants:['English','Malayalam'],
+  image:'https://picsum.photos/100?2'
+}
+
 ];
 
-let categories=[
-  {name:'Electronics',status:'Active'},
-  {name:'Accessories',status:'Active'},
-  {name:'Home Appliances',status:'Inactive'},
-  {name:'Gaming',status:'Active'}
+/* CATEGORIES */
+
+let categories = [
+
+{name:'Electronics',status:'Active'},
+{name:'Accessories',status:'Active'},
+{name:'Gaming',status:'Inactive'}
+
 ];
 
-let orders=[
-  {
-    id:1,
-    customer:'John Doe',
-    total:1200,
-    payment:'COD',
-    status:'Pending'
-  },
-  {
-    id:2,
-    customer:'Anna Smith',
-    total:850,
-    payment:'Online',
-    status:'Delivered'
-  },
-  {
-    id:3,
-    customer:'Rahul Kumar',
-    total:540,
-    payment:'UPI',
-    status:'Pending'
-  }
+/* ORDERS */
+
+let orders = [
+
+{
+  id:1,
+  customer:'John Doe',
+  total:1200,
+  payment:'COD',
+  status:'Pending'
+},
+
+{
+  id:2,
+  customer:'Anna Smith',
+  total:850,
+  payment:'Online',
+  status:'Delivered'
+}
+
 ];
 
-let users=[
-  {name:'John Doe',blocked:false},
-  {name:'Anna Smith',blocked:true},
-  {name:'Rahul Kumar',blocked:false},
-  {name:'Sara Ali',blocked:true},
-  {name:'David Lee',blocked:false},
-  {name:'Priya Nair',blocked:false}
+/* USERS */
+
+let users = [
+
+{name:'John Doe',blocked:false},
+{name:'Anna Smith',blocked:true},
+{name:'Rahul Kumar',blocked:false}
+
 ];
 
-let offers=[];
-let coupons=[];
+/* OFFERS */
+
+let offers = [
+
+{
+  name:'Summer Sale',
+  discount:20,
+  type:'Category',
+  target:'Electronics',
+  start:'2026-06-01',
+  end:'2026-06-30',
+  status:'Active'
+}
+
+];
+
+/* COUPONS */
+
+let coupons = [
+
+{
+  code:'SAVE10',
+  discount:10,
+  expiry:'2026-12-31',
+  usage:100,
+  status:'Active'
+}
+
+];
+
+let revenueChart;
+let orderStatusChart;
 
 function init(){
+
   showPage('dashboard');
 
   renderProducts();
@@ -462,74 +768,165 @@ function init(){
 }
 
 function showPage(page){
-  document.querySelectorAll('.page').forEach(p=>p.style.display='none');
+
+  document.querySelectorAll('.page')
+  .forEach(p=>p.style.display='none');
+
   document.getElementById(page).style.display='block';
 }
 
+function globalSearch(){
+
+  let value =
+  document.getElementById('globalSearch')
+  .value
+  .toLowerCase();
+
+  document.querySelectorAll('table tbody tr, ul li')
+  .forEach(item=>{
+
+    item.style.display =
+    item.innerText.toLowerCase().includes(value)
+    ? ''
+    : 'none';
+
+  });
+}
+
+function logout(){
+
+  let confirmLogout = confirm('Are you sure you want to logout?');
+
+  if(confirmLogout){
+
+    alert('Logged out successfully');
+
+    window.location.reload();
+
+  }
+}
+
 function loadDashboard(){
-  totalProducts.innerText=products.length;
-  totalOrders.innerText=orders.length;
-  totalUsers.innerText=users.length;
+
+  totalProducts.innerText = products.length;
+
+  totalOrders.innerText = orders.length;
+
+  totalUsers.innerText = users.length;
+
+  totalRevenue.innerText =
+  '$'+orders.reduce((a,b)=>a+b.total,0);
 }
 
 function saveProduct(){
 
-  let name=pName.value.trim();
-  let price=Number(pPrice.value);
-  let stock=Number(pStock.value);
-  let variants=pVariants.value.split(',').map(v=>v.trim());
-  let i=editIndex.value;
+  let name = pName.value.trim();
+  let price = Number(pPrice.value);
+  let stock = Number(pStock.value);
+  let variants = pVariants.value.split(',').map(v=>v.trim());
+  let image = pImage.value.trim();
 
-  if(!name || !price || !stock){
-    alert('Please fill all fields');
+  let i = editIndex.value;
+
+  if(!name || price < 0 || stock < 0 || !image){
+
+    alert('Invalid product data');
+
     return;
   }
 
+  let product = {
+    name,
+    price,
+    stock,
+    variants,
+    image
+  };
+
   if(i===''){
-    products.push({name,price,stock,variants});
+    products.push(product);
   }else{
-    products[i]={name,price,stock,variants};
+    products[i] = product;
   }
 
   renderProducts();
   loadDashboard();
+  loadChart();
 
   pName.value='';
   pPrice.value='';
   pStock.value='';
   pVariants.value='';
+  pImage.value='';
   editIndex.value='';
 
   bootstrap.Modal.getInstance(productModal).hide();
 }
 
 function renderProducts(){
-  productTable.innerHTML=products.map((p,i)=>`<tr>
-    <td>${p.name}</td>
-    <td>${p.price}</td>
-    <td>${p.stock}</td>
-    <td>${p.variants.join(', ')}</td>
+
+  productTable.innerHTML = products.map((p,i)=>`
+
+  <tr>
+
     <td>
-      <button class='btn btn-info btn-sm' onclick='editProduct(${i})'>Edit</button>
-      <button class='btn btn-danger btn-sm' onclick='deleteProduct(${i})'>Delete</button>
+      <img src="${p.image}" class="product-img">
     </td>
-  </tr>`).join('');
+
+    <td>${p.name}</td>
+
+    <td>$${p.price}</td>
+
+    <td>${p.stock}</td>
+
+    <td>${p.variants.join(', ')}</td>
+
+    <td>
+
+      <button class="btn btn-info btn-sm"
+      onclick="editProduct(${i})">
+
+      Edit
+
+      </button>
+
+      <button class="btn btn-danger btn-sm"
+      onclick="deleteProduct(${i})">
+
+      Delete
+
+      </button>
+
+    </td>
+
+  </tr>
+
+  `).join('');
 }
 
 function editProduct(i){
-  pName.value=products[i].name;
-  pPrice.value=products[i].price;
-  pStock.value=products[i].stock;
-  pVariants.value=products[i].variants.join(',');
-  editIndex.value=i;
+
+  let p = products[i];
+
+  pName.value = p.name;
+  pPrice.value = p.price;
+  pStock.value = p.stock;
+  pVariants.value = p.variants.join(',');
+  pImage.value = p.image;
+
+  editIndex.value = i;
 
   new bootstrap.Modal(productModal).show();
 }
 
 function deleteProduct(i){
+
   products.splice(i,1);
+
   renderProducts();
+
   loadDashboard();
+  loadChart();
 }
 
 function addCategory(){
@@ -542,45 +939,73 @@ function addCategory(){
   });
 
   renderCategories();
+
   catInput.value='';
 }
 
 function renderCategories(){
 
-  catList.innerHTML=categories.map((c,i)=>`
-    <li class='list-group-item d-flex justify-content-between align-items-center'>
+  catList.innerHTML = categories.map((c,i)=>`
 
-      <div>
-        <strong>${c.name}</strong>
-        <span class='badge ${c.status==='Active'?'bg-success':'bg-danger'} ms-2'>
-          ${c.status}
-        </span>
-      </div>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
 
-      <div>
-        <button class='btn btn-warning btn-sm' onclick='toggleCategory(${i})'>Toggle</button>
-        <button class='btn btn-danger btn-sm' onclick='deleteCategory(${i})'>Delete</button>
-      </div>
+    <div>
 
-    </li>
+      <strong>${c.name}</strong>
+
+      <span class="badge ${c.status==='Active'?'bg-success':'bg-danger'} ms-2">
+
+      ${c.status}
+
+      </span>
+
+    </div>
+
+    <div>
+
+      <button class="btn btn-warning btn-sm"
+      onclick="toggleCategory(${i})">
+
+      Toggle
+
+      </button>
+
+      <button class="btn btn-danger btn-sm"
+      onclick="deleteCategory(${i})">
+
+      Delete
+
+      </button>
+
+    </div>
+
+  </li>
+
   `).join('');
 }
 
 function toggleCategory(i){
-  categories[i].status=
-  categories[i].status==='Active'?'Inactive':'Active';
+
+  categories[i].status =
+  categories[i].status==='Active'
+  ? 'Inactive'
+  : 'Active';
 
   renderCategories();
 }
 
 function deleteCategory(i){
+
   categories.splice(i,1);
+
   renderCategories();
 }
 
 function renderOrders(data){
 
-  orderTable.innerHTML=data.map(o=>`<tr>
+  orderTable.innerHTML = data.map(o=>`
+
+  <tr>
 
     <td>#${o.id}</td>
     <td>${o.customer}</td>
@@ -588,147 +1013,463 @@ function renderOrders(data){
     <td>${o.payment}</td>
 
     <td>
-      <select class='form-select' onchange="updateOrder(${o.id},this.value)">
-        <option ${o.status==='Pending'?'selected':''}>Pending</option>
-        <option ${o.status==='Delivered'?'selected':''}>Delivered</option>
+
+      <select class="form-select"
+      onchange="updateOrder(${o.id},this.value)">
+
+        <option ${o.status==='Pending'?'selected':''}>
+          Pending
+        </option>
+
+        <option ${o.status==='Delivered'?'selected':''}>
+          Delivered
+        </option>
+
       </select>
+
     </td>
 
-  </tr>`).join('');
+  </tr>
+
+  `).join('');
 }
 
 function filterOrders(s){
+
   s==='all'
   ? renderOrders(orders)
   : renderOrders(orders.filter(o=>o.status===s));
 }
 
 function updateOrder(id,v){
+
   orders.find(o=>o.id===id).status=v;
+
+  loadChart();
 }
 
 function renderUsers(){
 
-  userTable.innerHTML=users.map((u,i)=>`<tr>
+  userTable.innerHTML = users.map((u,i)=>`
+
+  <tr>
 
     <td>${u.name}</td>
 
     <td>
-      <span class='badge ${u.blocked?'bg-danger':'bg-success'}'>
-        ${u.blocked?'Blocked':'Active'}
+
+      <span class="badge ${u.blocked?'bg-danger':'bg-success'}">
+
+      ${u.blocked?'Blocked':'Active'}
+
       </span>
+
     </td>
 
     <td>
-      <button class='btn btn-sm ${u.blocked?'btn-success':'btn-warning'}' onclick='toggleUser(${i})'>
-        ${u.blocked?'Unblock':'Block'}
+
+      <button class="btn btn-sm ${u.blocked?'btn-success':'btn-warning'}"
+      onclick="toggleUser(${i})">
+
+      ${u.blocked?'Unblock':'Block'}
+
       </button>
 
-      <button class='btn btn-sm btn-danger ms-1' onclick='deleteUser(${i})'>Delete</button>
+      <button class="btn btn-danger btn-sm"
+      onclick="deleteUser(${i})">
+
+      Delete
+
+      </button>
+
     </td>
 
-  </tr>`).join('');
+  </tr>
+
+  `).join('');
 }
 
 function toggleUser(i){
-  users[i].blocked=!users[i].blocked;
+
+  users[i].blocked = !users[i].blocked;
+
   renderUsers();
+
+  loadChart();
 }
 
 function deleteUser(i){
+
   users.splice(i,1);
+
   renderUsers();
+
   loadDashboard();
+  loadChart();
 }
 
-function addOffer(){
+function saveOffer(){
 
-  if(!offerName.value || !offerDiscount.value) return;
+  let name = offerName.value.trim();
+  let discount = offerDiscount.value;
+  let type = offerType.value;
+  let target = offerTarget.value.trim();
+  let start = offerStart.value;
+  let end = offerEnd.value;
+  let status = offerStatus.value;
 
-  offers.push({
-    name:offerName.value,
-    discount:offerDiscount.value
-  });
+  let i = offerEditIndex.value;
+
+  if(!name || !discount || !target || !start || !end){
+
+    alert('Please fill all fields');
+
+    return;
+  }
+
+  let offer = {
+    name,
+    discount,
+    type,
+    target,
+    start,
+    end,
+    status
+  };
+
+  if(i===''){
+    offers.push(offer);
+  }else{
+    offers[i] = offer;
+  }
 
   renderOffers();
 
   offerName.value='';
   offerDiscount.value='';
+  offerTarget.value='';
+  offerStart.value='';
+  offerEnd.value='';
+  offerStatus.value='Active';
+  offerType.value='Product';
+  offerEditIndex.value='';
 }
 
 function renderOffers(){
 
-  offerTable.innerHTML=offers.map((o,i)=>`<tr>
+  offerTable.innerHTML = offers.map((o,i)=>`
+
+  <tr>
 
     <td>${o.name}</td>
+
     <td>${o.discount}%</td>
 
+    <td>${o.target}</td>
+
+    <td>${o.type}</td>
+
+    <td>${o.start}</td>
+
+    <td>${o.end}</td>
+
     <td>
-      <button class='btn btn-danger btn-sm' onclick='deleteOffer(${i})'>Delete</button>
+
+      <span class="badge ${
+        o.status==='Active'
+        ? 'bg-success'
+        : 'bg-danger'
+      }">
+
+        ${o.status}
+
+      </span>
+
     </td>
 
-  </tr>`).join('');
+    <td>
+
+      <button
+        class="btn btn-info btn-sm"
+        onclick="editOffer(${i})">
+
+        Edit
+
+      </button>
+
+      <button
+        class="btn btn-danger btn-sm"
+        onclick="deleteOffer(${i})">
+
+        Delete
+
+      </button>
+
+    </td>
+
+  </tr>
+
+  `).join('');
+}
+
+function editOffer(i){
+
+  let o = offers[i];
+
+  offerName.value = o.name;
+  offerDiscount.value = o.discount;
+  offerType.value = o.type;
+  offerTarget.value = o.target;
+  offerStart.value = o.start;
+  offerEnd.value = o.end;
+  offerStatus.value = o.status;
+
+  offerEditIndex.value = i;
 }
 
 function deleteOffer(i){
+
   offers.splice(i,1);
+
   renderOffers();
 }
 
-function addCoupon(){
+function saveCoupon(){
 
-  if(!couponCode.value || !couponDiscount.value) return;
+  let code = couponCode.value.trim();
+  let discount = couponDiscount.value;
+  let expiry = couponExpiry.value;
+  let usage = couponUsage.value;
+  let status = couponStatus.value;
 
-  coupons.push({
-    code:couponCode.value,
-    discount:couponDiscount.value
-  });
+  let i = couponEditIndex.value;
+
+  if(!code || !discount || !expiry || !usage){
+
+    alert('Please fill all fields');
+
+    return;
+  }
+
+  let coupon = {
+    code,
+    discount,
+    expiry,
+    usage,
+    status
+  };
+
+  if(i===''){
+    coupons.push(coupon);
+  }else{
+    coupons[i] = coupon;
+  }
 
   renderCoupons();
 
   couponCode.value='';
   couponDiscount.value='';
+  couponExpiry.value='';
+  couponUsage.value='';
+  couponStatus.value='Active';
+  couponEditIndex.value='';
 }
 
 function renderCoupons(){
 
-  couponTable.innerHTML=coupons.map((c,i)=>`<tr>
+  couponTable.innerHTML = coupons.map((c,i)=>`
+
+  <tr>
 
     <td>${c.code}</td>
+
     <td>${c.discount}%</td>
 
+    <td>${c.expiry}</td>
+
+    <td>${c.usage}</td>
+
     <td>
-      <button class='btn btn-danger btn-sm' onclick='deleteCoupon(${i})'>Delete</button>
+
+      <span class="badge ${
+        c.status==='Active'
+        ? 'bg-success'
+        : 'bg-danger'
+      }">
+
+      ${c.status}
+
+      </span>
+
     </td>
 
-  </tr>`).join('');
+    <td>
+
+      <button class="btn btn-info btn-sm"
+      onclick="editCoupon(${i})">
+
+      Edit
+
+      </button>
+
+      <button class="btn btn-danger btn-sm"
+      onclick="deleteCoupon(${i})">
+
+      Delete
+
+      </button>
+
+    </td>
+
+  </tr>
+
+  `).join('');
+}
+
+function editCoupon(i){
+
+  let c = coupons[i];
+
+  couponCode.value = c.code;
+  couponDiscount.value = c.discount;
+  couponExpiry.value = c.expiry;
+  couponUsage.value = c.usage;
+  couponStatus.value = c.status;
+
+  couponEditIndex.value = i;
 }
 
 function deleteCoupon(i){
+
   coupons.splice(i,1);
+
   renderCoupons();
 }
 
 function loadChart(){
 
-  new Chart(document.getElementById('chart'),{
+  if(revenueChart){
+    revenueChart.destroy();
+  }
+
+  if(orderStatusChart){
+    orderStatusChart.destroy();
+  }
+
+  revenueChart = new Chart(document.getElementById('chart'),{
 
     type:'line',
 
     data:{
-      labels:['Jan','Feb','Mar','Apr'],
+
+      labels:['Jan','Feb','Mar','Apr','May','Jun'],
 
       datasets:[{
+
         label:'Revenue',
-        data:[500,800,1200,1500]
+
+        data:[500,900,1400,1800,2200,2600],
+
+        borderWidth:3,
+        tension:0.4
+
       }]
     }
   });
+
+  let delivered =
+  orders.filter(o=>o.status==='Delivered').length;
+
+  let pending =
+  orders.filter(o=>o.status==='Pending').length;
+
+  orderStatusChart = new Chart(
+    document.getElementById('orderChart'),
+    {
+
+      type:'doughnut',
+
+      data:{
+
+        labels:['Delivered','Pending'],
+
+        datasets:[{
+
+          data:[delivered,pending],
+          borderWidth:1
+
+        }]
+      }
+    }
+  );
+
+  reportRevenue.innerText =
+  '$'+orders.reduce((a,b)=>a+b.total,0);
+
+  reportDelivered.innerText = delivered;
+
+  reportPending.innerText = pending;
+
+  reportBlocked.innerText =
+  users.filter(u=>u.blocked).length;
+
+  topProductTable.innerHTML =
+  products.map(p=>`
+
+  <tr>
+
+    <td>${p.name}</td>
+
+    <td>$${p.price}</td>
+
+    <td>${p.stock}</td>
+
+    <td>
+
+      <span class="badge ${
+        p.stock > 10
+        ? 'bg-success'
+        : 'bg-danger'
+      }">
+
+        ${
+          p.stock > 10
+          ? 'In Stock'
+          : 'Low Stock'
+        }
+
+      </span>
+
+    </td>
+
+  </tr>
+
+  `).join('');
+
+  activityList.innerHTML = `
+
+    <li class="list-group-item">
+      New product added: Atomic Habits
+    </li>
+
+    <li class="list-group-item">
+      Coupon SAVE10 created
+    </li>
+
+    <li class="list-group-item">
+      Order #2 delivered successfully
+    </li>
+
+    <li class="list-group-item">
+      Summer Sale offer activated
+    </li>
+
+  `;
 }
 
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
-```
